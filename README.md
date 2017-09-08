@@ -15,7 +15,7 @@
 | count | Number | 返回的数组的个数 | 
 | filter | Function | 过滤条件函数 |
 
-**return**: Array
+**return**: [keys, vals]
 
 具体参见：
 ```javascript
@@ -23,5 +23,5 @@
 import randomList from `./modules/randomList.es6`; 
 
 // 调用如下
-let newList = randomList([1, 2, 3, 4, 5], 2, (num) => num>5); 
+let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5); 
 ```
