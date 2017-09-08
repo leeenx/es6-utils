@@ -1,4 +1,4 @@
-# es6-modules
+# es6-utils
 本项目用于存放本人的一些 es6 小工具
 
 ## randomList
