@@ -9,5 +9,5 @@ export default (list = [], count = list.length, filter) =>
         keys.push(randomIndex); 
         vals = vals.concat(list.splice(randomIndex, 1)); 
     }
-    return vals.length == 1 ? [vals[0], keys[0]] : [vals, keys]; 
+    return vals.length == 1 ? [keys[0], vals[0]] : [keys, vals]; 
 }
