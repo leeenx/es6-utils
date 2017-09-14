@@ -3,7 +3,7 @@
 	@双向链表结构
 */
 
-export defalut class Chain {
+export default class Chain {
 	constructor(arr = []) { 
 		// 用于存储链表的数组
 		this.chain = []; 
@@ -28,6 +28,16 @@ export defalut class Chain {
 		this.FREELIST = []; 
 		// 链表的长度
 		this.length = this.chain.length; 
+		// 创建一个迭代器 
+		this[Symbol.iterator] = () => { 
+			let that = this, cur = that.chain[this.HEAD]; 
+			return (function* () {
+				while(cur) {
+					yield cur; 
+					cur = that.chain[cur.next]; 
+				}
+			}())
+		}
 	}
 	// 返回链头并删除链头
 	shift() { 
