@@ -3,7 +3,7 @@
 	@双向链表结构
 */
 
-class Chain {
+export defalut class Chain {
 	constructor(arr = []) { 
 		// 用于存储链表的数组
 		this.chain = []; 
