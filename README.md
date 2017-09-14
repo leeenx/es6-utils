@@ -34,7 +34,7 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 **return**: {shift, unshift, pop, push, at, remove, add, length}
 
 | name | type | detail |
-| :-- | :-- | | :-- |
+| :-- | :-- | :-- |
 | shift | Function | 删除链表第一个节点，并返回这个节点。参见数组的 shift |
 | unshift | Function | 向链表头部插入一个节点。参见数组的 unshift | 
 | pop | Function | 删除链表最后一个节点，并返回这个节点。参见数组的 pop |
