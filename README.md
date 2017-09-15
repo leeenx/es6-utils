@@ -59,3 +59,46 @@ for(let it of chain) {
 ```
 上面代码输出的结果是：1, 2, 3, 4, 5, 6, 7
 
+## timer
+统一管理 setTimeout/setInterval 的小库，可以与渲染引擎（如 createjs/PIXI 等）结合使用，也可以单独使用。
+
+默认情况（非游戏开发）：
+```javascript
+import timer from './modules/timer'; 
+let intervalID = timer.setInterval(() => console.log("++1s++"), 1000); 
+timer.setTimeout(() => timer.clearInterval(intervalID), 5000); 
+```
+结合 createjs：
+```javascript
+import timer from './modules/timer'; 
+// 统一 ticker
+createjs.Ticker.addEventListener("tick", function(e) {
+  timer.update(e.paused, e.delta); // 这两个参数是必须的
+}); 
+// 计时
+let intervalID = timer.setInterval(() => console.log("++1s++"), 1000); 
+// 5s 后暂停
+timer.setTimeout(() => timer.pause(intervaID), 5000);
+// 10s 后继续
+timer.setTimeout(() => timer.resume(intervaID), 10000);
+```
+
+timer 的 APIs 如下：
+
+| name | type | syntax | detail |
+| :-- | :-- | :-- | :-- |
+| setTimeout | Function | let setTimeoutID = timer.setTimeout(fun, delay[, id]) | 替代原生setTimeout，第三个参数表示指定一个有意义的setTimeoutID |
+| clearTimeout | Function | timer.clearTimeout(setTimeoutID) | 清除timer.setTimeout |
+| setInterval | Function | let setIntervalID = timer.setInterval(fun, delay[, id]) | 替代原生setInterval，第三个参数表示指定一个有意义的setIntervalID |
+| clearInterval | Function | timer.clearInterval(setIntervalID) | 清除timer.clearInterval |
+| delete | Function | timer.delete(setTimeoutID/setIntervalID) | 相当于clearTimeout & clearInterval |
+| pause | Function | timer.pause(setTimeoutID/setIntervalID) | 暂停指定ID的计时，如果没指定ID表示暂停所有计时 |
+| resume | Function | timer.resume(setTimeoutID/setIntervalID) | 恢复指定ID的计时，如果没指定ID表示恢复所有计时 |
+| play | Function | timer.play(setTimeoutID/setIntervalID) | 同 resume |
+| pauseAll | Function | timer.pauseAll() | 暂停所有计时 |
+| playAll | Function | timer.playAll() | 恢复所有计时 | 
+| clean | Function | timer.clean() | 清空所有计时 |
+| useRAF | Boolean | timer.useRAF = true / false | true 表示启用自身RAF，false 反之。与第三方ticker结合时，timer 会自动切换 |
+
+
+
