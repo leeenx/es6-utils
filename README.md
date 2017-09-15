@@ -29,6 +29,7 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 创建双向链表的类（构造函数）。
 语法：
 > new Chain(Array)  
+
 将传入的数组转化为一个链表。
 
 **return**: {shift, unshift, pop, push, at, first, last, remove, add, clone, length}
