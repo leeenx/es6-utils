@@ -132,6 +132,21 @@ export default class Chain {
 	last() {
 		return this.at(this.length - 1); 
 	}
+	// 克隆
+	clone() {
+		let copy = new Chain(); 
+		for(let key of ["HEAD", "TAIL", "FREE", "length"]) {
+			copy[key] = this[key]; 
+		}
+		copy.chain.length = copy.length; 
+		// 链表数据拷贝
+		for(let i = 0, len = copy.length; i<len; ++i) {
+			copy.chain[i] = Object.create(this.chain[i]); 
+		}
+		// FREELIST
+		copy.FREELIST = [...this.FREELIST]; 
+		return copy; 
+	}
 	// 删除指定位置的元素
 	remove(index) {
 		// 数组范围之外
