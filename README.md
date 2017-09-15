@@ -46,20 +46,12 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 
 Chain的实例同时是一个迭代器。如下：
 
-```
+```javascript
 import Chain from './modules/Chain'; 
 let chain = new Chain([1, 2, 3, 4, 5, 6, 7]); 
 for(let it of chain) {
   console.log(it.item)
 }
-// 1
-// 2
-// 3
-// 4
-// 5
-// 6
-// 7
 ```
-
 
 
