@@ -31,7 +31,7 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 > new Chain(Array)
 将传入的数组转化为一个链表。
 
-**return**: {shift, unshift, pop, push, at, remove, add, length}
+**return**: {shift, unshift, pop, push, at, first, last, remove, add, clone, length}
 
 | name | type | detail |
 | :-- | :-- | :-- |
@@ -40,8 +40,11 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 | pop | Function | 删除链表最后一个节点，并返回这个节点。参见数组的 pop |
 | push | Function | 向链表尾部插入一个节点。参考数组的 push | 
 | at | Function | 返回指定索引的节点 |
+| first | Function | 返回头节点 |
+| last | Function | 返回尾节点 |
 | remove | Function | 删除指定索引的节点 |
 | add | Function | 向指定索引处插入节点 |
+| clone | Function | 返回一个克隆链表 |
 | length | Number | 链表长度 |
 
 Chain的实例同时是一个迭代器。如下：
@@ -53,5 +56,5 @@ for(let it of chain) {
   console.log(it.item)
 }
 ```
-
+上面代码输出的结果是：1, 2, 3, 4, 5, 6, 7
 
