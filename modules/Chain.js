@@ -41,8 +41,8 @@ export default class Chain {
 	}
 	// 返回链头并删除链头
 	shift() { 
-		// 把 FREE 加入到 FREELIST
-		this.FREELIST.push(this.FREE); 
+		// 回收 FREE
+		this.collection(); 
 		// FREE 指向被删除的位置
 		this.FREE = this.HEAD; 
 		// 头指头指向下一个位置
@@ -67,6 +67,8 @@ export default class Chain {
 			next: second, 
 			item: item
 		}
+		// 旧的头节点 prev 指向当前头节点
+		this.chain[second].prev = this.HEAD; 
 		// 创建一个 FREE
 		this.calloc(); 
 		// 链表长度 +1
@@ -74,8 +76,8 @@ export default class Chain {
 	}
 	// 返回链尾并删除表尾
 	pop() {
-		// 把 FREE 加入到 FREELIST
-		this.FREELIST.push(this.FREE); 
+		// 回收 FREE
+		this.collection(); 
 		// FREE 指向被删除的位置
 		this.FREE = this.TAIL; 
 		// 尾指针指向上一个位置 
@@ -100,6 +102,8 @@ export default class Chain {
 			next: -1, 
 			item: item
 		} 
+		// 旧的尾节点 next 指向当前尾节点
+		this.chain[penultimate].next = this.TAIL; 
 		// 创建一个 FREE
 		this.calloc(); 
 		// 链表长度 +1
@@ -159,16 +163,16 @@ export default class Chain {
 			// 指向表尾
 			return this.pop(); 
 		} else { 
-			// 把 FREE 加入到 FREELIST
-			this.FREELIST.push(this.FREE); 
-			// FREE 指向被删除的位置
-			this.FREE = index; 
 			// 当前节点 
-			let cur = this.chain[this.FREE]; 
+			let cur = this.at(index); 
 			// 上一个节点
 			let prev = this.chain[cur.prev]; 
 			// 下一个节点
 			let next = this.chain[cur.next]; 
+			// 回收 FREE
+			this.collection(); 
+			// FREE 指向被删除的位置
+			this.FREE = cur.index; 
 			// 删除当前节点
 			[prev.next, next.prev] = [next.index, prev.index]; 
 			// 链表长度 -1
@@ -213,5 +217,10 @@ export default class Chain {
 	calloc() {
 		// FREE 指向新位置
 		this.FREE = this.FREELIST.length ? this.FREELIST.pop() : this.chain.length; 
+	}
+	// 回收 FREE
+	collection() { 
+		// 把 FREE 加入到 FREELIST
+		this.FREELIST.push(this.FREE); 
 	}
 }
