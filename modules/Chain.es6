@@ -124,6 +124,14 @@ export default class Chain {
 		}
 		return cur; 
 	}
+	// 返回第一个元素
+	first() {
+		return this.at(0); 
+	}
+	// 返回最后一个元素
+	last() {
+		return this.at(this.length - 1); 
+	}
 	// 删除指定位置的元素
 	remove(index) {
 		// 数组范围之外
