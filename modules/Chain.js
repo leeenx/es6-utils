@@ -21,7 +21,7 @@ export default class Chain {
 		// 头指针
 		this.HEAD = 0; 
 		// 尾指针
-		this.TAIL = arr.length - 1; 
+		this.TAIL = arr.length && arr.length - 1; 
 		// 自由指针
 		this.FREE = arr.length; 
 		// 自由列表 - 回收FREE
