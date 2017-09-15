@@ -1,5 +1,5 @@
 # es6-utils
-本项目用于存放本人的一些 es6 小工具
+本项目用于存放一些 es6 小工具
 
 ## randomList
 随机打散数组，并返回指数量与指定条件的数组。
@@ -20,7 +20,7 @@
 具体参见：
 ```javascript
 // 引用模块
-import randomList from `./modules/randomList.es6`; 
+import randomList from `./modules/randomList`; 
 
 // 调用如下
 let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5); 
