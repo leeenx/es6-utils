@@ -19,7 +19,7 @@ export default class Chain {
 		} 
 		
 		// 头指针
-		this.HEAD = 0; 
+		this.HEAD = arr.length ? 0 : -1; 
 		// 尾指针
 		this.TAIL = arr.length && arr.length - 1; 
 		// 自由指针
@@ -31,12 +31,13 @@ export default class Chain {
 		// 创建一个迭代器 
 		this[Symbol.iterator] = () => { 
 			let that = this, cur = that.chain[this.HEAD]; 
-			return (function* () {
-				while(cur) {
+			return (function* () { 
+				while(cur !== undefined) {
 					yield cur; 
+					console.log(cur.next); 
 					cur = that.chain[cur.next]; 
 				}
-			}())
+			}()); 
 		}
 	}
 	// 返回链头并删除链头
@@ -68,7 +69,7 @@ export default class Chain {
 			item: item
 		}
 		// 旧的头节点 prev 指向当前头节点
-		this.chain[second].prev = this.HEAD; 
+		second >= 0 && (this.chain[second].prev = this.HEAD); 
 		// 创建一个 FREE
 		this.calloc(); 
 		// 链表长度 +1
@@ -103,7 +104,7 @@ export default class Chain {
 			item: item
 		} 
 		// 旧的尾节点 next 指向当前尾节点
-		this.chain[penultimate].next = this.TAIL; 
+		penultimate >= 0 && (this.chain[penultimate].next = this.TAIL); 
 		// 创建一个 FREE
 		this.calloc(); 
 		// 链表长度 +1
