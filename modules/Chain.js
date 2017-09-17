@@ -14,7 +14,7 @@ export default class Chain {
 				index: i, 
 				prev: i - 1, 
 				next: i !== len -1 ? i + 1 : -1, 
-				item: arr[i]
+				data: arr[i]
 			}
 		} 
 		
@@ -65,7 +65,7 @@ export default class Chain {
 			index: this.HEAD, 
 			prev: -1, 
 			next: second, 
-			item: item
+			data: item
 		}
 		// 旧的头节点 prev 指向当前头节点
 		second >= 0 && (this.chain[second].prev = this.HEAD); 
@@ -100,7 +100,7 @@ export default class Chain {
 			index: this.TAIL, 
 			prev: penultimate, 
 			next: -1, 
-			item: item
+			data: item
 		} 
 		// 旧的尾节点 next 指向当前尾节点
 		penultimate >= 0 && (this.chain[penultimate].next = this.TAIL); 
@@ -204,7 +204,7 @@ export default class Chain {
 				index: this.FREE, 
 				prev: prev.index, 
 				next: next.index, 
-				item: item
+				data: item
 			} 
 			prev.next = next.prev = cur.index; 
 			// 创建一个 FREE
