@@ -98,6 +98,7 @@ timer 的 APIs 如下：
 | pauseAll | Function | timer.pauseAll() | 暂停所有计时 |
 | playAll | Function | timer.playAll() | 恢复所有计时 | 
 | clean | Function | timer.clean() | 清空所有计时 |
+| set | Function | timer.set(id, {fn, delay}) | 重置timer的回调函数与delay |
 | useRAF | Boolean | timer.useRAF = true / false | true 表示启用自身RAF，false 反之。与第三方ticker结合时，timer 会自动切换 |
 
 
