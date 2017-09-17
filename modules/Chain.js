@@ -34,7 +34,6 @@ export default class Chain {
 			return (function* () { 
 				while(cur !== undefined) {
 					yield cur; 
-					console.log(cur.next); 
 					cur = that.chain[cur.next]; 
 				}
 			}()); 
