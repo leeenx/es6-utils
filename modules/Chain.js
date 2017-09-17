@@ -48,7 +48,7 @@ export default class Chain {
 		// 头指头指向下一个位置
 		this.HEAD = this.chain[this.HEAD].next; 
 		// 当前头指针的 prev 指向 -1
-		this.chain[this.HEAD].prev = -1; 
+		this.HEAD !== -1 && (this.chain[this.HEAD].prev = -1); 
 		// 链表长度减1
 		--this.length; 
 		// 返回 FREE
@@ -83,7 +83,7 @@ export default class Chain {
 		// 尾指针指向上一个位置 
 		this.TAIL = this.chain[this.TAIL].prev; 
 		// 当前尾指针的 next 指向 -1 
-		this.chain[this.TAIL].next = -1; 
+		this.TAIL !== -1 && (this.chain[this.TAIL].next = -1); 
 		// 链表长度 -1
 		--this.length; 
 		// 返回 FREE
