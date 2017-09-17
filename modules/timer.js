@@ -10,6 +10,7 @@
     @ timer.pause(id) 暂停对应id的timeout/interval
     @ timer.resume(id) 恢复对应id的timeout/interval
     @ timer.clean() 清空所有 timeout & interval
+    @ timer.set(id, {fn, dealy}) 重新指定 timer 的回调函数与时间
 */
 
 class Timer {
@@ -69,22 +70,30 @@ class Timer {
         this.delete(id); 
     }
 
+    // 修改指定id的 delay/fn
+    set(id, config = {}) { 
+        let item = this.queue.get(id); 
+        for(let key in config) {
+            item[key] = config[key]; 
+        }
+    }
+
     // 删除 queue 上的成员
     delete(id) {
         this.queue.delete(id); 
     }
 
-    // 暂停
+    // 暂停指定id
     pause(id) {
         id === undefined ? this.pauseAll() : (this.queue.get(id).paused = 1); 
     }
 
-    // 恢复
+    // 恢复指定id
     resume(id) {
         this.play(id); 
     } 
     
-    // 播放
+    // 播放指定id
     play(id) {
         id === undefined ? this.playAll() : (this.queue.get(id).paused = 0); 
     } 
@@ -165,4 +174,4 @@ let timer = new Timer();
 // 默认使用原生 RAF
 timer.useRAF = true; 
 // 导出timer
-export default timer; 
+// export default timer; 
