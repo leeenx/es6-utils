@@ -10,7 +10,6 @@
     @ timer.pause(id) 暂停对应id的timeout/interval
     @ timer.resume(id) 恢复对应id的timeout/interval
     @ timer.clean() 清空所有 timeout & interval
-    @ timer.set(id, {fn, dealy}) 重新指定 timer 的回调函数与时间
 */
 
 class Timer {
@@ -131,19 +130,19 @@ class Timer {
     }
 
     // 状态更新
-    update(paused, delta) { 
+    update() { 
         // 第一次调用 update 时主动停用原生接口
         this.useRAF = false; 
 
         // 下面是真正的 update
-        this.update = this._update; 
+        this.update = (paused, delta) => {
+        	if(this.usingRAF) return; 
+	        // 播放开关 
+	        this.paused == paused || (this.paused = paused); 
+	        this.tick(delta); 
+        } 
     }
-    _update(paused, delta) {
-        if(this.usingRAF) return; 
-        // 播放开关 
-        this.paused == paused || (this.paused = paused); 
-        this.tick(delta); 
-    }
+
 }
 
 class AnimationFrame { 
@@ -174,4 +173,4 @@ let timer = new Timer();
 // 默认使用原生 RAF
 timer.useRAF = true; 
 // 导出timer
-// export default timer; 
+export default timer; 
