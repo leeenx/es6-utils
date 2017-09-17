@@ -49,8 +49,8 @@ export default class Chain {
 		this.HEAD = this.chain[this.HEAD].next; 
 		// 当前头指针的 prev 指向 -1
 		this.HEAD !== -1 && (this.chain[this.HEAD].prev = -1); 
-		// 链表长度减1
-		--this.length; 
+		// 链表长度为0时，尾指针指向-1
+		--this.length === 0 && (this.TAIL = -1); 
 		// 返回 FREE
 		return this.chain[this.FREE]; 
 	}
@@ -68,7 +68,13 @@ export default class Chain {
 			data: item
 		}
 		// 旧的头节点 prev 指向当前头节点
-		second >= 0 && (this.chain[second].prev = this.HEAD); 
+		if(second !== -1) {
+			this.chain[second].prev = this.HEAD; 
+		}
+		else {
+			// 链表里只有一个节点，保证this.TAIL !== -1
+			this.TAIL = this.HEAD; 
+		} 
 		// 创建一个 FREE
 		this.calloc(); 
 		// 链表长度 +1
@@ -84,8 +90,8 @@ export default class Chain {
 		this.TAIL = this.chain[this.TAIL].prev; 
 		// 当前尾指针的 next 指向 -1 
 		this.TAIL !== -1 && (this.chain[this.TAIL].next = -1); 
-		// 链表长度 -1
-		--this.length; 
+		// 链表长度为0时，头指针指向-1
+		--this.length === 0 && (this.HEAD = -1); 
 		// 返回 FREE
 		return this.chain[this.FREE]; 
 	}
@@ -103,7 +109,13 @@ export default class Chain {
 			data: item
 		} 
 		// 旧的尾节点 next 指向当前尾节点
-		penultimate >= 0 && (this.chain[penultimate].next = this.TAIL); 
+		if(penultimate !== -1) {
+			this.chain[penultimate].next = this.TAIL; 
+		}
+		else {
+			// 链表里只有一个节点，保证this.HEAD !== -1
+			this.HEAD = this.TAIL; 
+		}
 		// 创建一个 FREE
 		this.calloc(); 
 		// 链表长度 +1
