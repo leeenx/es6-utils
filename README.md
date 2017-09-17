@@ -54,7 +54,7 @@ Chain的实例同时是一个迭代器。如下：
 import Chain from './modules/Chain'; 
 let chain = new Chain([1, 2, 3, 4, 5, 6, 7]); 
 for(let it of chain) {
-  console.log(it.item)
+  console.log(it.data)
 }
 ```
 上面代码输出的结果是：1, 2, 3, 4, 5, 6, 7
