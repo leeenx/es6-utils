@@ -71,7 +71,7 @@ class Timer {
 
     // 修改指定id的 delay/fn
     set(id, config = {}) { 
-        let item = this.queue.get(id); 
+        let item = this.queue.get(id) || {}; 
         for(let key in config) {
             item[key] = config[key]; 
         }
