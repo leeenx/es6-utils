@@ -299,7 +299,8 @@ export default class Chain {
 	clean() {
 		// 清空数组
 		this.length = this.chain.length = this.FREELIST.length = 0; 
-		this.HEAD = this.TAIL = this.FREE = 0; 
+		this.HEAD = this.TAIL = -1; 
+		this.FREE = 0; 
 	}
 	// 动态分配 FREE
 	calloc() {
