@@ -21,7 +21,7 @@ export default class Chain {
 		// 头指针
 		this.HEAD = arr.length ? 0 : -1; 
 		// 尾指针
-		this.TAIL = arr.length && arr.length - 1; 
+		this.TAIL = arr.length ? arr.length - 1 : -1;  
 		// 定位指针
 		this.POINTER = -1; 
 		// 自由指针
@@ -32,6 +32,7 @@ export default class Chain {
 		this.length = this.chain.length; 
 		// 创建一个迭代器 
 		this[Symbol.iterator] = () => { 
+			// 指针指向头部 
 			let that = this, cur = that.chain[this.HEAD]; 
 			return (function* () { 
 				while(cur !== undefined) {
@@ -100,7 +101,7 @@ export default class Chain {
 	// 插入新的链尾
 	push(item) {
 		// 新链表的倒数第二个节点
-		let penultimate = this.TAIL
+		let penultimate = this.TAIL; 
 		// 尾指针指向 FREE
 		this.TAIL = this.FREE; 
 		// 创建新的尾节点
@@ -110,6 +111,7 @@ export default class Chain {
 			next: -1, 
 			data: item
 		} 
+
 		// 旧的尾节点 next 指向当前尾节点
 		if(penultimate !== -1) {
 			this.chain[penultimate].next = this.TAIL; 
@@ -151,15 +153,15 @@ export default class Chain {
 		}
 	}
 	// 返回第一个元素
-	first() {
-		return this.at(0); 
+	first() { 
+		return this.chain[this.HEAD]; 
 	}
 	// 返回最后一个元素
 	last() {
-		return this.at(this.length - 1); 
+		return this.chain[this.TAIL]; 
 	}
 	// 返回当前元素，并把 POINTER 指向上一个元素
-	prev() {
+	prev() { 
 		// 当前节点
 		let cur = this.curr(); 
 		// POINTER 指向上一个，如果指向 -1 则重置为 this.HEAD
@@ -167,7 +169,7 @@ export default class Chain {
 		return cur; 
 	}
 	// 返回前当元素，并把 POINTER 指向下一个元素
-	next() {
+	next() { 
 		// 当前节点
 		let cur = this.curr(); 
 		// POINTER 指向下一个，如果指向 -1 则重置为 this.TAIL
