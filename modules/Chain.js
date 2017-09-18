@@ -233,37 +233,67 @@ export default class Chain {
 			return cur; 
 		}
 	}
-	// 在指定索引位置插入元素
-	add(index = 0, item) {
+	// 在指定索引前插入元素
+	insertBefore(index, item) {
 		// 数组范围之外
-		if(index<0 || index>=this.length) return ;
-		// 数组索引内
-		if(index === 0) {
-			// 在表头插入
-			this.unshift(item); 
-		} else if(index === this.length) {
-			// 在表尾插入
-			this.push(); 
-		} else { 
-			// 当前节点 
-			let cur = this.at(index); 
-			// 上一个节点
-			let prev = this.chain[cur.prev]; 
-			// 下一个节点
-			let next = cur; 
-			// 插入新节点
-			cur = this.chain[this.FREE] = {
-				index: this.FREE, 
-				prev: prev.index, 
-				next: next.index, 
-				data: item
-			} 
-			prev.next = next.prev = cur.index; 
-			// 创建一个 FREE
-			this.calloc(); 
-			// 链表长度 +1
-			++this.length; 
+		if(index < 0 || index >= this.length) return ;
+		// 当前节点 
+		let cur = this.at(index); 
+		// 上一个节点
+		let prev = this.chain[cur.prev] || {index: -1}; 
+		// 下一个节点
+		let next = cur; 
+		// 插入新节点
+		cur = this.chain[this.FREE] = {
+			index: this.FREE, 
+			prev: prev.index, 
+			next: next.index, 
+			data: item
 		} 
+		next.prev = cur.index; 
+		// 上一个节点存在
+		if(prev.index !== -1) {
+			prev.next = cur.index; 
+		} 
+		// 插入的是头节点
+		else {
+			this.HEAD = cur.index; 
+		}
+		// 创建一个 FREE
+		this.calloc(); 
+		// 链表长度 +1
+		++this.length; 
+	}
+	// 在指定索引后插入元素，与 insertBefore 做对就
+	insertAfter(index, item) {
+		// 数组范围之外
+		if(index < 0 || index >= this.length) return ;
+		// 当前节点 
+		let cur = this.at(index); 
+		// 下一个节点
+		let next = this.chain[cur.next] || {index: -1}; 
+		// 上一个节点
+		let prev = cur; 
+		// 插入新节点
+		cur = this.chain[this.FREE] = {
+			index: this.FREE, 
+			prev: prev.index, 
+			next: next.index, 
+			data: item
+		}
+		prev.next = cur.index; 
+		// 下一个节点存在
+		if(next.index !== -1) {
+			next.prev = cur.index; 
+		}
+		// 插入的是尾节点
+		else {
+			this.TAIL = cur.index; 
+		}
+		// 创建一个 FREE
+		this.calloc(); 
+		// 链表长度 +1
+		++this.length; 
 	}
 	// 清空链表
 	clean() {
