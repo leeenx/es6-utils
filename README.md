@@ -123,5 +123,31 @@ timer 的 APIs 如下：
 | set | Function | timer.set(id, {fn, delay}) | 重置timer的回调函数与delay |
 | useRAF | Boolean | timer.useRAF = true / false | true 表示启用自身RAF，false 反之。与第三方ticker结合时，timer 会自动切换 |
 
+## Events
+事件管理类。语法如下：
+
+> let event = new Events(); 
+
+event实例的API如下：
+
+| name | type | syntac | deltail |
+| :-- | :-- | :-- | :-- |
+| on | Function | event.on(eventName, fn) | 监听一个自定义事件 |
+| off | Function | event.off(eventName, fn) | 移除监听事件 |
+| once | Function | event.once(eventName, fn) | 监听一次自定义事件 |
+| dispatch | Function | event.dispatch(eventName, args) | 触发一个自定义事件 |
+
+用法如下：
+
+```javascript
+let event = new Events(); 
+event.on("haha", function() {
+	console.log("haha"); 
+}); 
+setTimeout(() => event.dispatch("haha")); 
+```
+
+
+
 
 
