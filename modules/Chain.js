@@ -144,7 +144,7 @@ export default class Chain {
 		return cur; 
 	}
 	// 返回指定指针的元素
-	pointAt(addr) {
+	pointerAt(addr) {
 		// setPointer 判断地址是否合法与设置指针
 		if(this.setPointer(addr)) {
 			return this.chain[addr]; 
