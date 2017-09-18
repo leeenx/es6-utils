@@ -145,8 +145,8 @@ export default class Chain {
 	}
 	// 返回指定指针的元素
 	pointerAt(addr) {
-		// setPointer 判断地址是否合法与设置指针
-		if(this.setPointer(addr)) {
+		// 指针地址索引在 0 ~ this.lenght，为合法地址
+		if(addr >= 0 && addr < this.length) {
 			return this.chain[addr]; 
 		}
 	}
