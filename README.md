@@ -32,7 +32,7 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 
 将传入的数组转化为一个链表。
 
-**return**: {shift, unshift, pop, push, at, first, last, remove, add, clone, length}
+**return**: {shift, unshift, pop, push, at, pointerAt, setPointer, prev, next, curr, first, last, remove, add, clone, length, HEAD, TAIL, POINTER, chain}
 
 | name | type | detail |
 | :-- | :-- | :-- |
@@ -40,13 +40,23 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 | unshift | Function | 向链表头部插入一个节点。参见数组的 unshift | 
 | pop | Function | 删除链表最后一个节点，并返回这个节点。参见数组的 pop |
 | push | Function | 向链表尾部插入一个节点。参考数组的 push | 
-| at | Function | 返回指定索引的节点 |
+| at | Function | 返回指定索引的节点，并将 POINTER 指向当前位置 |
+| pointerAt | Function | 返回指定 POINTER 地址的节点 |
+| setPointer | Function | 设置 POINTER 地址 |
+| prev | Function | 返回当前节点，并把 POINTER 指向上一个节点 |
+| next | Function | 返回当前节点，并把 POINTER 指向上一个节点 |
+| curr | Function | 返回当前节点 |
 | first | Function | 返回头节点 |
 | last | Function | 返回尾节点 |
 | remove | Function | 删除指定索引的节点 |
 | add | Function | 向指定索引处插入节点 |
 | clone | Function | 返回一个克隆链表 |
 | length | Number | 链表长度 |
+| HEAD | Number | 头指针 |
+| TAIL | Number | 尾指针 |
+| POINTER | Number | 当前位置指针 |
+| chain | Array | 存储链表结构的数组 |
+
 
 Chain的实例同时是一个迭代器。如下：
 
@@ -58,6 +68,17 @@ for(let it of chain) {
 }
 ```
 上面代码输出的结果是：1, 2, 3, 4, 5, 6, 7
+
+利用 next/prev 来做迭代，如下：
+
+```javascript
+let chain = new Chain([1, 2, 3, 4, 5, 6, 7, 8]), item, i = 0; 
+chain.setPointer(3); 
+while(item = chain.prev()) {
+	console.log(item.data); 
+}
+```
+上面的结果是：4, 3, 2, 1
 
 ## timer
 统一管理 setTimeout/setInterval 的小库，可以与渲染引擎（如 createjs/PIXI 等）结合使用，也可以单独使用。
