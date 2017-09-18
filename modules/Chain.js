@@ -22,6 +22,8 @@ export default class Chain {
 		this.HEAD = arr.length ? 0 : -1; 
 		// 尾指针
 		this.TAIL = arr.length && arr.length - 1; 
+		// 定位指针
+		this.POINTER = -1; 
 		// 自由指针
 		this.FREE = arr.length; 
 		// 自由列表 - 回收FREE
@@ -128,8 +130,9 @@ export default class Chain {
 		if(index < this.length / 2) {
 			// 从头部开始 
 			cur = this.chain[this.HEAD]; 
-			for(let i = 0; i !== index; ++i) {
+			for(let i = 0; i !== index; ++i) { 
 				cur = this.chain[cur.next]; 
+				this.POINTER = cur.index; 
 			}
 		} else {
 			// 从尾部开始
@@ -140,6 +143,13 @@ export default class Chain {
 		}
 		return cur; 
 	}
+	// 返回指定指针的元素
+	pointAt(addr) {
+		// setPointer 判断地址是否合法与设置指针
+		if(this.setPointer(addr)) {
+			return this.chain[addr]; 
+		}
+	}
 	// 返回第一个元素
 	first() {
 		return this.at(0); 
@@ -147,6 +157,34 @@ export default class Chain {
 	// 返回最后一个元素
 	last() {
 		return this.at(this.length - 1); 
+	}
+	// 返回当前元素，并把 POINTER 指向上一个元素
+	prev() {
+		// 当前节点
+		let cur = this.curr(); 
+		// POINTER 指向上一个，如果指向 -1 则重置为 this.HEAD
+		this.POINTER !== -1 ? (this.POINTER = this.chain[this.POINTER].prev) : (this.POINTER = this.HEAD); 
+		return cur; 
+	}
+	// 返回前当元素，并把 POINTER 指向下一个元素
+	next() {
+		// 当前节点
+		let cur = this.curr(); 
+		// POINTER 指向下一个，如果指向 -1 则重置为 this.TAIL
+		this.POINTER !== -1 ? (this.POINTER = this.chain[this.POINTER].next) : (this.POINTER = this.TAIL); 
+		return cur; 
+	}
+	// 返回当前元素
+	curr() {
+		return this.chain[this.POINTER]; 
+	}
+	// 定位指针
+	setPointer(addr = this.POINTER) {
+		// 指针地址索引在 0 ~ this.lenght，为合法地址
+		if(addr >= 0 && addr < this.length) {
+			this.POINTER = addr; 
+			return true; 
+		}
 	}
 	// 克隆
 	clone() {
