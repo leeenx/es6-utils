@@ -32,7 +32,7 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 
 将传入的数组转化为一个链表。
 
-**return**: {shift, unshift, pop, push, at, pointerAt, setPointer, prev, next, curr, first, last, remove, add, clone, length, HEAD, TAIL, POINTER, chain}
+**return**: {shift, unshift, pop, push, insertAfter, insertAfter, pointerAt, setPointer, prev, next, curr, first, last, remove, add, clone, length, HEAD, TAIL, POINTER, chain}
 
 | name | type | detail |
 | :-- | :-- | :-- |
@@ -49,7 +49,8 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 | first | Function | 返回头节点 |
 | last | Function | 返回尾节点 |
 | remove | Function | 删除指定索引的节点 |
-| add | Function | 向指定索引处插入节点 |
+| insertAfter | Function | 向指定索引后插入节点 |
+| insertBefore | Function | 向指定索引前插入节点 |
 | clone | Function | 返回一个克隆链表 |
 | length | Number | 链表长度 |
 | HEAD | Number | 头指针 |
