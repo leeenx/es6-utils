@@ -147,7 +147,27 @@ event.on("haha", function() {
 setTimeout(() => event.dispatch("haha")); 
 ```
 
+## p2angle
 
+计算两点间的角度。用法如下：
+
+```javascript
+export p2angle from './modules/p2angle'; 
+p2angle.set(0, 0); 
+let radian = p2angel.get(100, 100); 
+console.log("点(100, 100) 到 原点(0, 0) 的弧度是：" + radian); 
+let degree = p2angel.getDegree(100, 100); 
+console.log("点(100, 100) 到 原点(0, 0) 的角度是：" + degree); 
+```
+p2angle的API如下：
+| name | type | detail |
+| :-- | :-- | :-- |
+| set | Function | 设置一个原点 |
+| get | Function | 获取当前点到原点的弧度值 | 
+| getDegree | Function | 获取当前点到原点的角度值 |
+
+注意，这里的角度的取值请参考下图：
+![角度](http://7xv39r.com1.z0.glb.clouddn.com/20170924_coord.gif)
 
 
 
