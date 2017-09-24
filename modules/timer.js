@@ -141,10 +141,8 @@ class Timer {
         this.useRAF = false; 
 
         // 下面是真正的 update
-        this.update = (paused, delta) => {
+        this.update = (delta) => {
         	if(this.usingRAF) return; 
-	        // 播放开关 
-	        this.paused == paused || (this.paused = paused); 
 	        this.tick(delta); 
         } 
     }
