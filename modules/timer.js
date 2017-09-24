@@ -48,7 +48,7 @@ class Timer {
 
     // clearTimeout
     clearTimeout(id) {
-        this.delete(id); 
+        return this.delete(id); 
     }
 
     // setInterval 的实现
@@ -66,7 +66,7 @@ class Timer {
 
     // clearInterval
     clearInterval(id) {
-        this.delete(id); 
+        return this.delete(id); 
     }
 
     // 修改指定id的 delay/fn
@@ -75,41 +75,47 @@ class Timer {
         for(let key in config) {
             item[key] = config[key]; 
         }
+	return true; 
     }
 
     // 删除 queue 上的成员
     delete(id) {
-        this.queue.delete(id); 
+        return this.queue.delete(id); 
     }
 
     // 暂停指定id
     pause(id) {
         id === undefined ? this.pauseAll() : (this.queue.get(id).paused = 1); 
+	return true; 
     }
 
     // 恢复指定id
     resume(id) {
-        this.play(id); 
+        return this.play(id); 
     } 
     
     // 播放指定id
     play(id) {
         id === undefined ? this.playAll() : (this.queue.get(id).paused = 0); 
+	return true; 
     } 
 
     // 清空timer
     clean() {
         this.queue = new Map(); 
+	return true; 
     }
 
     // 暂停全部 id
     pauseAll() {
         this.queue.forEach((item) => item.paused = 1); 
+	return true; 
     }
 
     // 播放全部 id
     playAll() {
         this.queue.forEach((item) => item.paused = 0); 
+	return true;
     }
 
     // tick
