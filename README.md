@@ -95,7 +95,7 @@ timer.setTimeout(() => timer.clearInterval(intervalID), 5000);
 import timer from './modules/timer'; 
 // 统一 ticker
 createjs.Ticker.addEventListener("tick", function(e) {
-  timer.update(e.paused, e.delta); // 这两个参数是必须的
+  e.paused || timer.update(e.delta); 
 }); 
 // 计时
 let intervalID = timer.setInterval(() => console.log("++1s++"), 1000); 
