@@ -58,30 +58,32 @@ export default class Chain {
 		return this.chain[this.FREE]; 
 	}
 	// 插入新的链头
-	unshift(item) { 
-		// 新链表的第二个节点
-		let second = this.HEAD; 
-		// 头指针指向 FREE
-		this.HEAD = this.FREE; 
-		// 创建新的头节点
-		this.chain[this.HEAD] = {
-			index: this.HEAD, 
-			prev: -1, 
-			next: second, 
-			data: item
-		}
-		// 旧的头节点 prev 指向当前头节点
-		if(second !== -1) {
-			this.chain[second].prev = this.HEAD; 
-		}
-		else {
-			// 链表里只有一个节点，保证this.TAIL !== -1
-			this.TAIL = this.HEAD; 
-		} 
-		// 创建一个 FREE
-		this.calloc(); 
-		// 链表长度 +1
-		++this.length; 
+	unshift(...items) { 
+		items.forEach((item) => {
+			// 新链表的第二个节点
+			let second = this.HEAD; 
+			// 头指针指向 FREE
+			this.HEAD = this.FREE; 
+			// 创建新的头节点
+			this.chain[this.HEAD] = {
+				index: this.HEAD, 
+				prev: -1, 
+				next: second, 
+				data: item
+			}
+			// 旧的头节点 prev 指向当前头节点
+			if(second !== -1) {
+				this.chain[second].prev = this.HEAD; 
+			}
+			else {
+				// 链表里只有一个节点，保证this.TAIL !== -1
+				this.TAIL = this.HEAD; 
+			} 
+			// 创建一个 FREE
+			this.calloc(); 
+			// 链表长度 +1
+			++this.length;
+		})  
 	}
 	// 返回链尾并删除表尾
 	pop() {
@@ -99,31 +101,33 @@ export default class Chain {
 		return this.chain[this.FREE]; 
 	}
 	// 插入新的链尾
-	push(item) {
-		// 新链表的倒数第二个节点
-		let penultimate = this.TAIL; 
-		// 尾指针指向 FREE
-		this.TAIL = this.FREE; 
-		// 创建新的尾节点
-		this.chain[this.TAIL] = {
-			index: this.TAIL, 
-			prev: penultimate, 
-			next: -1, 
-			data: item
-		} 
+	push(...items) {
+		items.forEach((item) => {
+			// 新链表的倒数第二个节点
+			let penultimate = this.TAIL; 
+			// 尾指针指向 FREE
+			this.TAIL = this.FREE; 
+			// 创建新的尾节点
+			this.chain[this.TAIL] = {
+				index: this.TAIL, 
+				prev: penultimate, 
+				next: -1, 
+				data: item
+			} 
 
-		// 旧的尾节点 next 指向当前尾节点
-		if(penultimate !== -1) {
-			this.chain[penultimate].next = this.TAIL; 
-		}
-		else {
-			// 链表里只有一个节点，保证this.HEAD !== -1
-			this.HEAD = this.TAIL; 
-		}
-		// 创建一个 FREE
-		this.calloc(); 
-		// 链表长度 +1
-		++this.length;
+			// 旧的尾节点 next 指向当前尾节点
+			if(penultimate !== -1) {
+				this.chain[penultimate].next = this.TAIL; 
+			}
+			else {
+				// 链表里只有一个节点，保证this.HEAD !== -1
+				this.HEAD = this.TAIL; 
+			}
+			// 创建一个 FREE
+			this.calloc(); 
+			// 链表长度 +1
+			++this.length;
+		}); 
 	}
 	// 返回指定索引的元素
 	at(index = 0) { 
@@ -234,66 +238,70 @@ export default class Chain {
 		}
 	}
 	// 在指定索引前插入元素
-	insertBefore(index, item) {
+	insertBefore(index, ...items) {
 		// 数组范围之外
 		if(index < 0 || index >= this.length) return ;
 		// 当前节点 
 		let cur = this.at(index); 
-		// 上一个节点
-		let prev = this.chain[cur.prev] || {index: -1}; 
-		// 下一个节点
-		let next = cur; 
-		// 插入新节点
-		cur = this.chain[this.FREE] = {
-			index: this.FREE, 
-			prev: prev.index, 
-			next: next.index, 
-			data: item
-		} 
-		next.prev = cur.index; 
-		// 上一个节点存在
-		if(prev.index !== -1) {
-			prev.next = cur.index; 
-		} 
-		// 插入的是头节点
-		else {
-			this.HEAD = cur.index; 
-		}
-		// 创建一个 FREE
-		this.calloc(); 
-		// 链表长度 +1
-		++this.length; 
+		items.forEach((item) => {
+			// 上一个节点
+			let prev = this.chain[cur.prev] || {index: -1}; 
+			// 下一个节点
+			let next = cur; 
+			// 插入新节点
+			cur = this.chain[this.FREE] = {
+				index: this.FREE, 
+				prev: prev.index, 
+				next: next.index, 
+				data: item
+			} 
+			next.prev = cur.index; 
+			// 上一个节点存在
+			if(prev.index !== -1) {
+				prev.next = cur.index; 
+			} 
+			// 插入的是头节点
+			else {
+				this.HEAD = cur.index; 
+			}
+			// 创建一个 FREE
+			this.calloc(); 
+			// 链表长度 +1
+			++this.length; 
+		})
 	}
 	// 在指定索引后插入元素，与 insertBefore 做对就
-	insertAfter(index, item) {
+	insertAfter(index, ...items) {
 		// 数组范围之外
 		if(index < 0 || index >= this.length) return ;
 		// 当前节点 
 		let cur = this.at(index); 
-		// 下一个节点
-		let next = this.chain[cur.next] || {index: -1}; 
-		// 上一个节点
-		let prev = cur; 
-		// 插入新节点
-		cur = this.chain[this.FREE] = {
-			index: this.FREE, 
-			prev: prev.index, 
-			next: next.index, 
-			data: item
-		}
-		prev.next = cur.index; 
-		// 下一个节点存在
-		if(next.index !== -1) {
-			next.prev = cur.index; 
-		}
-		// 插入的是尾节点
-		else {
-			this.TAIL = cur.index; 
-		}
-		// 创建一个 FREE
-		this.calloc(); 
-		// 链表长度 +1
-		++this.length; 
+		items.forEach((item) => {
+			// 下一个节点
+			let next = this.chain[cur.next] || {index: -1}; 
+			// 上一个节点
+			let prev = cur; 
+			// 插入新节点
+			cur = this.chain[this.FREE] = {
+				index: this.FREE, 
+				prev: prev.index, 
+				next: next.index, 
+				data: item
+			}
+			prev.next = cur.index; 
+			// 下一个节点存在
+			if(next.index !== -1) {
+				next.prev = cur.index; 
+			}
+			// 插入的是尾节点
+			else {
+				this.TAIL = cur.index; 
+			}
+			// 创建一个 FREE
+			this.calloc(); 
+			// 链表长度 +1
+			++this.length; 
+		})
 	}
 	// 清空链表
 	clean() {
