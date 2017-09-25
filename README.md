@@ -37,9 +37,9 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 | name | type | detail |
 | :-- | :-- | :-- |
 | shift | Function | 删除链表第一个节点，并返回这个节点。参见数组的 shift |
-| unshift | Function | 向链表头部插入一个节点。参见数组的 unshift | 
-| pop | Function | 删除链表最后一个节点，并返回这个节点。参见数组的 pop |
-| push | Function | 向链表尾部插入一个节点。参考数组的 push | 
+| unshift | Function | 向链表头部插入一个或多个节点节点。chain.unshift(node1[, node2, node3, ...]); 参见数组的 unshift | 
+| pop | Function | 删除链表最后一个，并返回这个节点。参见数组的 pop |
+| push | Function | 向链表尾部插入一个或多个节点。chain.push(node1[, node2, node3, ...]); 参考数组的 push | 
 | at | Function | 返回指定索引的节点，并将 POINTER 指向当前位置 |
 | pointerAt | Function | 返回指定 POINTER 地址的节点 |
 | setPointer | Function | 设置 POINTER 地址 |
@@ -49,8 +49,8 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 | first | Function | 返回头节点 |
 | last | Function | 返回尾节点 |
 | remove | Function | 删除指定索引的节点 |
-| insertAfter | Function | 向指定索引后插入节点 |
-| insertBefore | Function | 向指定索引前插入节点 |
+| insertAfter | Function | 向指定索引后插入节点, chain.insertAfter(index, node1[, node2, node3, ...]) |
+| insertBefore | Function | 向指定索引前插入节点,chain.insertBefore(index, node1[, node2, node3, ...]) |
 | clone | Function | 返回一个克隆链表 |
 | length | Number | 链表长度 |
 | HEAD | Number | 头指针 |
