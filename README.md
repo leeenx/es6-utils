@@ -26,7 +26,7 @@ import randomList from `./modules/randomList`;
 let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5); 
 ```
 ## Chain
-创建双向链表的类（构造函数）。
+创建双向链表的类（构造函数）。[deprecated]
 语法：
 > new Chain(Array)  
 
@@ -48,9 +48,12 @@ let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5);
 | curr | Function | 返回当前节点 |
 | first | Function | 返回头节点 |
 | last | Function | 返回尾节点 |
-| remove | Function | 删除指定索引的节点 |
-| insertAfter | Function | 向指定索引后插入节点, chain.insertAfter(index, node1[, node2, node3, ...]) |
-| insertBefore | Function | 向指定索引前插入节点,chain.insertBefore(index, node1[, node2, node3, ...]) |
+| remove | Function | 删除指定索引范围的节点，返回一个Chain实例。用法：chain.remove(start[, end]) |
+| insertAfter | Function | 向指定索引后插入节点。 用法：chain.insertAfter(index, node1[, node2, node3, ...]) |
+| insertBefore | Function | 向指定索引前插入节点。用法：chain.insertBefore(index, node1[, node2, node3, ...]) |
+| slice | Function | 克隆索引范围的节点，返回一个Chain实例。用法：chain.slice(start[, end]) |
+| splice | Function | 删除索引范围的节点，并在 start 处批量插入指定节点，返回一个 Chain 实例。用法：chain.splice(start[, deleteCount, item1, item2, ...]) |
+| concat | Function | 合并两个链表。用法：chainA.concat(chainB) |
 | clone | Function | 返回一个克隆链表 |
 | length | Number | 链表长度 |
 | HEAD | Number | 头指针 |
@@ -80,6 +83,8 @@ while(item = chain.prev()) {
 }
 ```
 上面的结果是：4, 3, 2, 1
+
+**说明：由于最开始的结构设计不合理，导致后期添加的 APIs: slice, splice & concat 的算法复杂度太高，不符合链表的表现。我决定重新设计一个 v2 版本**
 
 ## timer
 统一管理 setTimeout/setInterval 的小库，可以与渲染引擎（如 createjs/PIXI 等）结合使用，也可以单独使用。
