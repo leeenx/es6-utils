@@ -84,7 +84,7 @@ while(item = chain.prev()) {
 ```
 上面的结果是：4, 3, 2, 1
 
-**说明：由于最开始的结构设计不合理，导致后期添加的 APIs: slice, splice & concat 的算法复杂度太高，不符合链表的表现。我决定重新设计一个 v2 版本**
+> **说明：由于最开始的结构设计不合理，导致后期添加的 APIs: slice, splice & concat 的算法复杂度太高，不符合链表的表现。我决定重新设计一个 v2 版本**
 
 ## timer
 统一管理 setTimeout/setInterval 的小库，可以与渲染引擎（如 createjs/PIXI 等）结合使用，也可以单独使用。
