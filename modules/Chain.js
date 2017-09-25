@@ -3,7 +3,7 @@
 	@双向链表结构
 */
 
-export default class Chain {
+class Chain {
 	constructor(arr = []) { 
 		// 用于存储链表的数组
 		this.chain = []; 
@@ -151,7 +151,7 @@ export default class Chain {
 	}
 	// 返回指定指针的元素
 	pointerAt(addr) {
-		// 指针地址索引在 0 ~ this.lenght，为合法地址
+		// 指针地址索引在 0 ~ this.length，为合法地址
 		if(addr >= 0 && addr < this.length) {
 			return this.chain[addr]; 
 		}
@@ -186,7 +186,7 @@ export default class Chain {
 	}
 	// 定位指针
 	setPointer(addr = this.POINTER) {
-		// 指针地址索引在 0 ~ this.lenght，为合法地址
+		// 指针地址索引在 0 ~ this.length，为合法地址
 		if(addr >= 0 && addr < this.length) {
 			this.POINTER = addr; 
 			return true; 
@@ -208,34 +208,44 @@ export default class Chain {
 		return copy; 
 	}
 	// 删除指定位置的元素
-	remove(index) {
+	remove(start = 0, end = start + 1) {
 		// 数组范围之外
-		if(index<0 || index>=this.length) return ;
-		// 数组索引内
-		if(index === 0) {
-			// 指向表头
-			return this.shift(); 
-		} else if(index === this.length - 1) {
-			// 指向表尾
-			return this.pop(); 
-		} else { 
+		if(start >= 0 && end <= this.length && start < end) {
+			// 返回结果是一个 Chain 链
+			let removedChain = new Chain(); 
 			// 当前节点 
-			let cur = this.at(index); 
-			// 上一个节点
-			let prev = this.chain[cur.prev]; 
-			// 下一个节点
-			let next = this.chain[cur.next]; 
-			// 回收 FREE
-			this.collection(); 
-			// FREE 指向被删除的位置
-			this.FREE = cur.index; 
-			// 删除当前节点
-			[prev.next, next.prev] = [next.index, prev.index]; 
-			// 链表长度 -1
-			--this.length; 
-			// 返回 FREE
-			return cur; 
+			let cur = this.at(start); 
+			while(start++ !== end) {
+				// 上一个节点
+				let prev = this.chain[cur.prev] || {index: -1}; 
+				// 下一个节点
+				let next = this.chain[cur.next] || {index: -1}; 
+				// 回收 FREE
+				this.collection(); 
+				// FREE 指向被删除的位置
+				this.FREE = cur.index; 
+				// 删除当前节点
+				[prev.next, next.prev] = [next.index, prev.index]; 
+				// 把 cur.data 存入 removedChain 中
+				removedChain.push(cur.data); 
+				// cur 重新定位
+				cur = next; 
+				// 修正头指针
+				if(prev.index === -1) {
+					this.HEAD = next.index; 
+				}
+				// 修正尾指针
+				if(next.index === -1) {
+					this.TAIL = prev.index; 
+					// remove 表尾
+					cur = prev; 
+				}
+				// 链表长度 -1
+				--this.length; 
+			}
+			return removedChain; 
 		}
+		return false; 
 	}
 	// 在指定索引前插入元素
 	insertBefore(index, ...items) {
@@ -302,6 +312,46 @@ export default class Chain {
 			// 链表长度 +1
 			++this.length; 
 		})
+	}
+	// 从 chain 中剪出指定长度的切片，不支持负数
+	slice(start = 0, end = this.length) { 
+		// 新切片的 chain
+		let sliceChain = new Chain(), len = end - start;  
+		if(start >=0 && end <= this.length && len > 0) {
+			let cur = this.at(start), count = 0;  
+			while(count++ < len) { 
+				sliceChain.push(cur.data); 
+				cur = this.chain[cur.next]; 
+			}	
+		}
+		return sliceChain; 
+	}
+	// splice, 不支持负数
+	splice(start = 0, deleteCount, ...items) {
+		// splice 也会返回一段切片
+		let removedChain = new Chain(), 
+		len = Math.min(this.length - start, deleteCount); 
+		if(start >= 0 && deleteCount >= 0) { 
+			// 删除节点
+			removedChain = this.remove(start, start + len); 
+			// 插入节点
+			if(start > 0) {
+				this.insertAfter(start - 1, ...items);
+			}
+			else {
+				// 向头部倒序插入
+				for(let i = items.length - 1; i >= 0; --i) {
+					this.unshift(items[i]); 
+				}
+			} 
+		}
+		return removedChain; 
+	}
+	// concat, 拼合 chain
+	concat(chain) {
+		for(let {data} of chain) {
+			this.push(data); 
+		}
 	}
 	// 清空链表
 	clean() {
