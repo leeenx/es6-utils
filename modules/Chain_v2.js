@@ -9,7 +9,7 @@ export default class Chain {
 		this.HEAD = this.TAIL = this.POINTER = null;
 		// 前驱
 		this.NEXT = "next"; 
-		// 后驱
+		// 后继
 		this.PREV = "prev"; 
 		// 链表长度
 		this.length = 0; 
@@ -28,12 +28,12 @@ export default class Chain {
 
 	// 向尾部插入节点
 	push(...datas) {
-		// 前后驱
+		// 前驱后继
 		let {NEXT, PREV} = this; 
 		datas.forEach((data) => {
 			// 节点
 			let node = this.generateNode(data), TAIL = this.TAIL; 
-			// 前后驱指定
+			// 前驱后继指定
 			if(null !== TAIL) { 
 				[TAIL[NEXT], node[PREV]] = [node, TAIL]; 
 			}
@@ -46,12 +46,12 @@ export default class Chain {
 	}
 	// 向头部插入节点 
 	unshift(...datas) {
-		// 前后驱
+		// 前驱后继
 		let {NEXT, PREV} = this; 
 		datas.forEach((datas) => { 
 			// 节点
 			let node = this.generateNode(data), HEAD = this.HEAD; 
-			// 前后驱指定
+			// 前驱后继指定
 			if(null !== HEAD) {
 				[HEAD[PREV], node[NEXT]] = [node, HEAD]; 
 			}
@@ -65,7 +65,7 @@ export default class Chain {
 	// 从尾部删除节点，并返回它的data
 	pop() {
 		if(this.length === 0) return false; 
-		// 前后驱, 头尾指针，普通指针
+		// 前驱后继, 头尾指针，普通指针
 		let {NEXT, PREV, HEAD, TAIL, POINTER, TAIL: {data}} = this, newTail = TAIL[PREV]; 
 		// 只有一个节点或没有节点，清空HEAD&TAIL&POINTER
 		if(TAIL === HEAD) {
@@ -87,7 +87,7 @@ export default class Chain {
 	// 从头部删除节点，并返回它的data
 	shift() { 
 		if(this.length === 0) return false; 
-		// 前后驱, 头尾指针，普通指针
+		// 前驱后继, 头尾指针，普通指针
 		let {NEXT, PREV, HEAD, TAIL, POINTER, HEAD: {data}} = this, newHead = HEAD[NEXT]; 
 		// 只有一个节点或没有节点，清空HEAD&TAIL&POINTER
 		if(TAIL === HEAD) {
@@ -99,7 +99,7 @@ export default class Chain {
 			HEAD === POINTER && this.setPointer(newHead); 
 			// 头指针向前移一位
 			this.setHead(newHead); 
-			// 删除旧的头节点与当前头节点的后驱
+			// 删除旧的头节点与当前头节点的后继
 			[HEAD, newHead[PREV]] = [null, null]; 
 		}
 		// 链表长度减少1
@@ -111,7 +111,7 @@ export default class Chain {
 		if(index < 0 || index >= this.length) return false; 
 		// 指针回调至头部
 		this.setPointer(); 
-		// 前后驱, 头指针，普通指针
+		// 前驱后继, 头指针，普通指针
 		let {NEXT, PREV, HEAD, POINTER} = this, cur = POINTER; 
 		while(0 < index--) {
 			cur = cur[NEXT]
@@ -123,7 +123,7 @@ export default class Chain {
 	// 返回当前节点的data，并把POINTER向前移一位
 	next() {
 		if(this.length === 0) return false; 
-		// 前后驱, 普通指针
+		// 前驱后继, 普通指针
 		let {NEXT, PREV, POINTER, POINTER: {data}} = this, newPointer = POINTER[NEXT]; 
 		this.setPointer(newPointer); 
 		return data; 
@@ -131,7 +131,7 @@ export default class Chain {
 	// 返回当前节点的data，并把POINTER向后移一位
 	prev() {
 		if(this.length === 0) return false; 
-		// 前后驱, 普通指针
+		// 前驱后继, 普通指针
 		let {NEXT, PREV, POINTER, POINTER: {data}} = this, newPointer = POINTER[PREV]; 
 		this.setPointer(newPointer); 
 		return data; 
@@ -154,11 +154,11 @@ export default class Chain {
 	insertBefore(index, ...datas) { 
 		if(this.length === 0 || index >= this.length) return false; 
 		this.at(index); 
-		// 前后驱，普通指针
+		// 前驱后继，普通指针
 		let {NEXT, PREV, POINTER} = this, currNode = POINTER; 
 		datas.forEach((data) => {
 			let node = this.generateNode(data), prevNode = currNode[PREV]; 
-			// 前后驱指定
+			// 前驱后继指定
 			[currNode[PREV], node[NEXT], node[PREV]] = [node, currNode, prevNode]; 
 			// POINTER非指向HEAD，前驱节点的NEXT指向新节点
 			if(prevNode !== null) {
@@ -181,9 +181,9 @@ export default class Chain {
 		let {NEXT, PREV, POINTER} = this, currNode = POINTER; 
 		datas.forEach((data) => {
 			let node = this.generateNode(data), nextNode = currNode[NEXT]; 
-			// 前后驱指定
+			// 前驱后继指定
 			[currNode[NEXT], node[PREV], node[NEXT]] = [node, currNode, nextNode]; 
-			// POINTER非指向TAIL，后驱节点的PREV指向新节点
+			// POINTER非指向TAIL，后继节点的PREV指向新节点
 			if(nextNode !== null) {
 				nextNode[PREV] = node; 
 			}
@@ -320,4 +320,5 @@ export default class Chain {
 			that.POINTER = that.TAIL; 
 		}()); 
 	}
+
 }
