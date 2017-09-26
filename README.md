@@ -26,7 +26,8 @@ import randomList from `./modules/randomList`;
 let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5); 
 ```
 ## Chain
-创建双向链表的类（构造函数）。[deprecated]
+创建双向链表的类（构造函数）。[deprecated] 
+
 语法：
 > new Chain(Array)  
 
