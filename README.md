@@ -26,14 +26,14 @@ import randomList from `./modules/randomList`;
 let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5); 
 ```
 ## Chain
-创建双向链表的类（构造函数）。[deprecated] 
+创建双向链表的类（构造函数）。**Chain 已弃用不再维护。已经升级至 [Chain_v2](https://github.com/leeenx/es6-utils#chain_v2)** 
 
 语法：
 > new Chain(Array)  
 
 将传入的数组转化为一个链表。
 
-**return**: {shift, unshift, pop, push, insertAfter, insertAfter, pointerAt, setPointer, prev, next, curr, first, last, remove, add, clone, length, HEAD, TAIL, POINTER, chain}
+**return**: {shift, unshift, pop, push, insertAfter, insertAfter, pointerAt, setPointer, prev, next, curr, first, last, remove, add, clone, splice, slice, concat, length, HEAD, TAIL, POINTER, chain}
 
 | name | type | detail |
 | :-- | :-- | :-- |
@@ -86,6 +86,84 @@ while(item = chain.prev()) {
 上面的结果是：4, 3, 2, 1
 
 > **说明：由于最开始的结构设计不合理，导致 concat 的算法复杂度太高，不符合链表的表现。我决定重新设计一个 v2 版本**
+
+## Chain_v2
+
+重新设计改写的 `Chain` 类，一个纯粹的链表类。API 与 `Chain` 几乎一样。
+
+语法：
+> new Chain(Array)  
+
+将传入的数组转化为一个链表。
+
+**return**: {shift, unshift, pop, push, insertAfter, insertAfter, prev, next, curr, first, last, remove, add, clone, reverse, slice, splice, concat, reverse, length, *setPointer, *setHead, *setTail, *HEAD, *TAIL, *POINTER, [Symbol.iterator]}
+
+| name | type | syntax | detail |
+| :-- | :-- | :-- | :-- |
+| shift | Function | chain.shift() | 删除链表第一个节点，并返回这个节点。|
+| unshift | Function | chain.unshift(node1[, node2, node3, ...]) | 向链表头部插入一个或多个节点节点。| 
+| pop | Function | chain.pop() | 删除链表最后一个，并返回这个节点。 |
+| push | Function | chain.push(node1[, node2, node3, ...]) | 向链表尾部插入一个或多个节点。 参考数组的 push | 
+| at | Function | chain.at(index) | 返回指定索引的节点，并将 POINTER 指向当前位置 |
+| prev | Function | chain.prev() | 返回当前节点，并把 POINTER 指向上一个节点 |
+| next | Function | chain.next() | 返回当前节点，并把 POINTER 指向上一个节点 |
+| curr | Function | chain.curr() | 返回当前节点 |
+| first | Function | chain.first() | 返回头节点 |
+| last | Function | chain.last() | 返回尾节点 |
+| remove | Function | chain.remove(start[, end]) | 删除指定索引范围的节点，返回一个Chain实例。|
+| insertAfter | Function | chain.insertAfter(index, node1[, node2, node3, ...]) | 向指定索引后插入节点。 |
+| insertBefore | Function | chain.insertBefore(index, node1[, node2, node3, ...]) | 向指定索引前插入节点。 |
+| slice | Function | chain.slice(start[, end]) | 克隆索引范围的节点，返回一个Chain实例。 |
+| splice | Function | chain.splice(start[, deleteCount, item1, item2, ...]) | 删除索引范围的节点，并在 start 处批量插入指定节点，返回一个 Chain 实例。 |
+| reverse | Function | chain.reverse() | 链表快速反转 | 
+| concat | Function | chainA.concat(chainB) | 合并两个链表。 |
+| clone | Function | chain.clone() |  返回一个克隆链表 |
+| length | Number | chain.length | 链表长度 |
+| `*`setPointer | Function | chain.setPointer(node = chain.HEAD) | 设置 POINTER 指针 |
+| `*`setHead | Function | chain.setHead(node) | 设置头指针 |
+| `*`setTail | Function | chain.setTail(node) | 设置尾指针 |
+| `*`HEAD | Object | - | 头指针 |
+| `*`TAIL | Object | - | 尾指针 |
+| `*`POINTER | Object | - | 当前位置指针 | 
+| `*`NEXT | String | - | 前驱别名。勿调用！ |
+| `*`PREV | String | - | 后驱别名。勿调用！ |
+| [Symbol.iterator] | Symbol | - | 迭代接口 |
+
+**注意加 `*` 的属性表示内部调用**
+
+Chain的实例同时是一个迭代器。如下：
+
+```javascript
+import Chain from './modules/Chain'; 
+let chain = new Chain([1, 2, 3, 4, 5, 6, 7]); 
+for(let it of chain) {
+  console.log(it.data)
+}
+```
+上面代码输出的结果是：1, 2, 3, 4, 5, 6, 7
+
+利用 next/prev 来做迭代，如下：
+
+```javascript
+let chain = new Chain([1, 2, 3, 4, 5, 6, 7, 8]), item, i = 0; 
+chain.setPointer(3); 
+while(item = chain.prev()) {
+	console.log(item.data); 
+}
+```
+上面的结果是：4, 3, 2, 1
+
+可以跟数组一样操作合并：
+```javascript
+let chain = new Chain([1, 2, 3, 4, 5]); 
+let chain2 = new Chain(["a", "b", "c", "d", "e"]); 
+chain.concat(chain2); 
+for(let data of chain) {
+	console.log(data); 
+}
+```
+输出结果：1, 2, 3, 4, 5, a, b, c, d, e
+
 
 ## timer
 统一管理 setTimeout/setInterval 的小库，可以与渲染引擎（如 createjs/PIXI 等）结合使用，也可以单独使用。
