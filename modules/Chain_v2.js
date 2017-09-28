@@ -48,7 +48,7 @@ export default class Chain {
 	unshift(...datas) {
 		// 前驱后继
 		let {NEXT, PREV} = this; 
-		datas.forEach((datas) => { 
+		datas.forEach((data) => { 
 			// 节点
 			let node = this.generateNode(data), HEAD = this.HEAD; 
 			// 前驱后继指定
