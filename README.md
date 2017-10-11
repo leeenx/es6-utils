@@ -110,6 +110,8 @@ while(item = chain.prev()) {
 | curr | Function | chain.curr() | 返回当前节点 |
 | first | Function | chain.first() | 返回头节点 |
 | last | Function | chain.last() | 返回尾节点 |
+| indexOf | Function | chain.indexOf(value, fromIndex) | 返回 value 的索引位置，如果没有返回 -1 | 
+| sort | Function | chain.sort(compare) | 链表排序 | 
 | remove | Function | chain.remove(start[, end]) | 删除指定索引范围的节点，返回一个Chain实例。|
 | insertAfter | Function | chain.insertAfter(index, node1[, node2, node3, ...]) | 向指定索引后插入节点。 |
 | insertBefore | Function | chain.insertBefore(index, node1[, node2, node3, ...]) | 向指定索引前插入节点。 |
