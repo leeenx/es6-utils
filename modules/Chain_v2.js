@@ -153,6 +153,7 @@ export default class Chain {
 	// 在指定索引前插入节点
 	insertBefore(index, ...datas) { 
 		if(this.length === 0 || index >= this.length) return false; 
+		// 定位到 index 位置
 		this.at(index); 
 		// 前驱后继，普通指针
 		let {NEXT, PREV, POINTER} = this, currNode = POINTER; 
@@ -160,11 +161,11 @@ export default class Chain {
 			let node = this.generateNode(data), prevNode = currNode[PREV]; 
 			// 前驱后继指定
 			[currNode[PREV], node[NEXT], node[PREV]] = [node, currNode, prevNode]; 
-			// POINTER非指向HEAD，前驱节点的NEXT指向新节点
+			// 前驱节点非指向HEAD，前驱节点的NEXT指向新节点
 			if(prevNode !== null) {
 				prevNode[NEXT] = node; 
 			}
-			// POINTER指向HEAD，头指针更新为当前节点
+			// 前驱节点指向HEAD，头指针更新为当前节点
 			else { 
 				this.setHead(node); 
 			}
@@ -173,21 +174,51 @@ export default class Chain {
 		}); 
 		return true; 
 	}
+	// 在指定索引前插入链表
+	insertChainBefore(index, chain) {
+		// 索引超标
+		if(index >= this.length) return false; 
+		// 主链为空，直接引用子链表 chain
+		if(this.length === 0) {
+			this.setHead(chain.HEAD);
+			this.setTail(chain.TAIL); 
+			this.setPointer(chain.POINTER); 
+		}
+		// 非空主链
+		else {
+			// 定位到 index 位置
+			this.at(index); 
+			let {NEXT, PREV, POINTER} = this, node = POINTER, prevNode = node[PREV]; 
+			// index 位置元素后驱指定
+			[chain.HEAD[PREV], chain.TAIL[NEXT], node[PREV]] = [prevNode, node, chain.TAIL]; 
+			// 前驱节点非指向HEAD，前驱节点的NEXT指向 chain.HEAD
+			if(prevNode !== null) {
+				prevNode[NEXT] = chain.HEAD; 
+			}
+			// 前驱节点指向HEAD，头指针更新为 chain.HEAD
+			else { 
+				this.setHead(chain.HEAD); 
+			}
+		}
+		// 链表长度更新
+		this.length += chain.length; 
+	}
 	// 在指定索引后插入节点
 	insertAfter(index, ...datas) {
 		if(this.length === 0 || index >= this.length) return false; 
+		// 定位到 index 位置
 		this.at(index); 
-		// 前后惨，普通指针
+		// 前驱后继，普通指针
 		let {NEXT, PREV, POINTER} = this, currNode = POINTER; 
 		datas.forEach((data) => {
 			let node = this.generateNode(data), nextNode = currNode[NEXT]; 
 			// 前驱后继指定
 			[currNode[NEXT], node[PREV], node[NEXT]] = [node, currNode, nextNode]; 
-			// POINTER非指向TAIL，后继节点的PREV指向新节点
+			// 后继节点非指向TAIL，后继节点的PREV指向新节点
 			if(nextNode !== null) {
 				nextNode[PREV] = node; 
 			}
-			// POINTER指向TAIL，尾指针更新为当前节点
+			// 后继节点指向TAIL，尾指针更新为当前节点
 			else { 
 				this.setTail(node); 
 			}
@@ -197,6 +228,35 @@ export default class Chain {
 			++this.length; 
 		}); 
 		return true; 
+	}
+	// 在指定索引后插入链表
+	insertChainAfter(index, chain) { 
+		// 索引超标
+		if(index >= this.length) return false; 
+		// 主链为空，直接引用子链表 chain
+		if(this.length === 0) {
+			this.setHead(chain.HEAD);
+			this.setTail(chain.TAIL); 
+			this.setPointer(chain.POINTER); 
+		}
+		// 非空主链
+		else {
+			// 定位到 index 位置
+			this.at(index); 
+			let {NEXT, PREV, POINTER} = this, node = POINTER, nextNode = node[NEXT]; 
+			// index 位置元素后驱指定
+			[chain.HEAD[PREV], chain.TAIL[NEXT], node[NEXT]] = [node, nextNode, chain.HEAD]; 
+			// 后继节点非指向TAIL，后继节点的PREV指向 chain.TAIL
+			if(nextNode !== null) {
+				nextNode[PREV] = chain.TAIL; 
+			}
+			// 后继节点指向TAIL，尾指针更新为 chain.TAIL
+			else {
+				this.setTail(chain.TAIL); 
+			}
+		}
+		// 链表长度更新
+		this.length += chain.length; 
 	}
 	// 删除指定索引的节点，并节点的 data
 	remove(index) { 
