@@ -115,6 +115,8 @@ while(item = chain.prev()) {
 | remove | Function | chain.remove(start[, end]) | 删除指定索引范围的节点，返回一个Chain实例。|
 | insertAfter | Function | chain.insertAfter(index, node1[, node2, node3, ...]) | 向指定索引后插入节点。 |
 | insertBefore | Function | chain.insertBefore(index, node1[, node2, node3, ...]) | 向指定索引前插入节点。 |
+| insertChainAfter | Function | chainA.insertChainAfter(index, chainB) | 向指定索引后插入链表。 |
+| insertChainBefore | Function | chainA.insertChainBefore(index, chainB) | 向指定索引前插入链表。 |
 | slice | Function | chain.slice(start[, end]) | 克隆索引范围的节点，返回一个Chain实例。 |
 | splice | Function | chain.splice(start[, deleteCount, item1, item2, ...]) | 删除索引范围的节点，并在 start 处批量插入指定节点，返回一个 Chain 实例。 |
 | reverse | Function | chain.reverse() | 链表快速反转 | 
