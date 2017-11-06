@@ -211,10 +211,10 @@ timer 的 APIs 如下：
 | set | Function | timer.set(id, {fn, delay}) | 重置timer的回调函数与delay |
 | useRAF | Boolean | timer.useRAF = true / false | true 表示启用自身RAF，false 反之。与第三方ticker结合时，timer 会自动切换 |
 
-## Events
+## Event
 事件管理类。语法如下：
 
-> let event = new Events(); 
+> let event = new Event(); 
 
 event实例的API如下：
 
