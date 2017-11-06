@@ -7,7 +7,7 @@
 	@ object.dispacth(event, arg) // 触发一个事件
 */
 
-export default class Events {
+export default class Event {
 	constructor() {
 		// 定义的事件与回调
 	    this.defineEvent = {}; 
