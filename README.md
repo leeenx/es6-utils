@@ -221,8 +221,9 @@ event实例的API如下：
 | name | type | syntac | deltail |
 | :-- | :-- | :-- | :-- |
 | on | Function | event.on(eventName, fn) | 监听一个自定义事件 |
-| off | Function | event.off(eventName, fn) | 移除监听事件 |
+| off | Function | event.off(eventName, fn) | 移除监听事件，event.off() 等同于 event.clean |
 | once | Function | event.once(eventName, fn) | 监听一次自定义事件 |
+| clean | Function | event.clean() | 清空所有事件 |
 | dispatch | Function | event.dispatch(eventName, args) | 触发一个自定义事件 |
 
 用法如下：
