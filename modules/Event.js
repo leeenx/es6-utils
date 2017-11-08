@@ -60,4 +60,8 @@ export default class Event {
         }
         this.register(event, onceCb); 
     }
+    // 清空所有事件
+    clean() {
+        this.defineEvent = {}; 
+    }
 }
