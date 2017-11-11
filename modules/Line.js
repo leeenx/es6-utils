@@ -41,8 +41,8 @@ class Line {
 	cross(line) {
 		let {a: a0, b: b0, c: c0} = this; 
 		let {a: a1, b: b1, c: c1} = line; 
-		let x = (c0 - b0 * c0 + b0 * c1) / (a0 * b0 - a1 * b0 - a0); 
-		let y = -(a0 * (c0 - c0 * b0 + b0 * c1) / (a0 * b0 - a1 * b0 - a0) + c0) / b0; 
+		let x = (c1 / b1 - c0 / b0) / (a0 / b0 - a1 / b1); 
+		let y = (c1 / a1 - c0 / a0) / (b0 / a0 - b1 / a1); 
 		return {x, y} 
 	}
 	// 获取坐标 x
