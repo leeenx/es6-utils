@@ -9,7 +9,7 @@ class Line {
 			@ 一般公式: ax + by + c = 0
 			@ 斜率公式： y = kx + d; 
 		*/
-		let a, b, k, radian, degree; 
+		let a, b, c, k, radian, degree; 
 		let {x: x0, y: y0} = coordA; 
 		// coordB 不是坐标而是角度 ---- 斜率公式
 		if(typeof(coordB) === "number") {
