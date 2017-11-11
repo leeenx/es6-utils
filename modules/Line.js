@@ -45,4 +45,14 @@ class Line {
 		let y = -(a0 * (c0 - c0 * b0 + b0 * c1) / (a0 * b0 - a1 * b0 - a0) + c0) / b0; 
 		return {x, y} 
 	}
+	// 获取坐标 x
+	getX(y) { 
+		const {a, b, c} = this; 
+		return -(b * y + c) / a; 
+	}
+	// 获取坐标 y
+	getY(x) { 
+		const {a, b, c} = this; 
+		return -(a * x + c) / b; 
+	}
 }
