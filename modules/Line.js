@@ -35,7 +35,7 @@ class Line {
 	// 目标点到线段的距离
 	distanceFromCoord(x, y) { 
 		let {a, b, c} = this; 
-		return Math.abs(a * x + b * y + c) / Math.sqrt(a * a, b * b); 
+		return Math.abs(a * x + b * y + c) / Math.sqrt(a * a + b * b); 
 	}
 	// 求两线交点
 	cross(line) {
