@@ -1,4 +1,4 @@
-class P2angel {
+class P2angle {
 	constructor() {
 		// 默认认是左上角作用圆心
 		this.center = {x: 0, y: 0};
