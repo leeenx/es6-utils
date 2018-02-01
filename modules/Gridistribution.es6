@@ -1,14 +1,14 @@
 /*
 	@ author: leeenx
-	@ name: 网格随机分布
+	@ name: 网格随机分布算法
 */
 
 export default class Gridistribution{
-	constructor({width, height, cell = {width: 10, height: 0}}, rectangles = []) {
+	constructor({width, height, cell = {width: 10}}, rectangles = []) {
 		width = width >> 0; 
 		height = height >> 0; 
 		// 格子的高默认与它的宽一样
-		cell.height === 0 && (cell.height = cell.width); 
+		cell.height === undefined && (cell.height = cell.width); 
 		// 列数
 		let col = width / cell.width >> 0; 
 		// 行数
