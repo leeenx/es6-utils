@@ -57,11 +57,14 @@ export default class Gridistribution{
 			}
 		}); 
 		// 生成压缩后的格子
-		this.cells = this.grid.map(cell => !cell.isRemoved); 
+		this.cells = this.grid.filter(cell => !cell.isRemoved); 
 		this.shuffleCells = this._shuffle(this.cells.concat([])); 
 	}
 	// 随机返回 count 个格子
 	pick(count) {
+		if(count > this.shuffleCells.length) {
+			throw("超出范围"); 
+		}
 		return this.shuffleCells.slice(0, count); 
 	}
 }
