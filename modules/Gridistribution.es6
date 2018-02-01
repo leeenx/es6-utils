@@ -17,11 +17,11 @@ export default class Gridistribution{
 		// 宽高修正
 		[cell.width, cell.height] = [width / col, height / row]; 
 		// 表格数组
-		this.originGrid = new Array(col * row); 
+		this.grid = new Array(col * row); 
 		for(let i = 0; i < row; ++i) {
 			for(let j = 0; j < col; ++j) { 
 				let index = i * col + j; 
-				this.originGrid[index] = {
+				this.grid[index] = {
 					index, 
 					x: cell.width * j, 
 					y: cell.height * i, 
@@ -44,8 +44,8 @@ export default class Gridistribution{
 	}
 	// 从数组中剔除空洞
 	trim(...rectangles) {
-		rectangles.forEach({x, y, width, height} => {
-			// 把 rectangle 框起的范围从 originGrid 中删除
+		rectangles.forEach(({x, y, width, height}) => {
+			// 把 rectangle 框起的范围从 grid 中删除
 			let startCol = x / this.cell.width >> 0; 
 			let startRow = y / this.cell.height >> 0; 
 			let endCol = (x + width) / this.cell.width >> 0; 
@@ -53,12 +53,12 @@ export default class Gridistribution{
 			for(let i = startRow; i < endRow; ++i) {
 				for(let j = startRow; j < endCol; ++j) {
 					let index = i * this.col + j; 
-					this.originGrid[index].isRemoved = true; 
+					this.grid[index].isRemoved = true; 
 				}
 			}
 		}); 
 		// 生成压缩后的格子
-		this.cells = this.grid.map(cell => return !cell.isRemoved); 
+		this.cells = this.grid.map(cell => !cell.isRemoved); 
 		this.shuffleCells = this._shuffle(this.cells.concat([])); 
 	}
 	// 随机返回 count 个格子
