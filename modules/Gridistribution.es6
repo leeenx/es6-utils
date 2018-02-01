@@ -1,7 +1,6 @@
 /*
 	@ author: leeenx
-	@ name: 网格分布算法
-	@ 参数 width & height 会强制转整数
+	@ name: 网格随机分布
 */
 
 export default class Gridistribution{
