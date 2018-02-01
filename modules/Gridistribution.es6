@@ -4,7 +4,7 @@
 */
 
 export default class Gridistribution{
-	constructor({width, height, count = 1, cell = {width: 10, height: 0}}, rectangles = []) {
+	constructor({width, height, cell = {width: 10, height: 0}}, rectangles = []) {
 		width = width >> 0; 
 		height = height >> 0; 
 		// 格子的高默认与它的宽一样
