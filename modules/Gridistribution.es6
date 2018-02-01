@@ -4,7 +4,7 @@
 */
 
 export default class Gridistribution{
-	constructor({width, height, cell = {width: 10}}, rectangles = []) {
+	constructor({width, height, cell = {width: 10}, rectangles = []}) {
 		width = width >> 0; 
 		height = height >> 0; 
 		// 格子的高默认与它的宽一样
@@ -30,7 +30,7 @@ export default class Gridistribution{
 			}
 		}
 		// 挂载属性
-		Object.assign(this, {width, height, cell: cell}); 
+		Object.assign(this, {row, col, width, height, cell: cell}); 
 		// 剔除不可分布成员
 		this.trim(rectangles); 
 	}
@@ -42,7 +42,7 @@ export default class Gridistribution{
 	    return a;
 	}
 	// 从数组中剔除空洞
-	trim(...rectangles) {
+	trim(rectangles) { 
 		rectangles.forEach(({x, y, width, height}) => {
 			// 把 rectangle 框起的范围从 grid 中删除
 			let startCol = x / this.cell.width >> 0; 
