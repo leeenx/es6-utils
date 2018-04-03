@@ -209,6 +209,8 @@ timer 的 APIs 如下：
 | playAll | Function | timer.playAll() | 恢复所有计时 | 
 | clean | Function | timer.clean() | 清空所有计时 |
 | set | Function | timer.set(id, {fn, delay}) | 重置timer的回调函数与delay |
+| reset | Function | timer.reset(id) | 调用reset后，指定ID的计时会被置零 |
+| resetAll | Function | timer.resetAll() | 调用resetAll后，所有计时会被置零 |
 | useRAF | Boolean | timer.useRAF = true / false | true 表示启用自身RAF，false 反之。与第三方ticker结合时，timer 会自动切换 |
 
 ## Event
