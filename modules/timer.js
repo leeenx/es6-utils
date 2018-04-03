@@ -118,6 +118,16 @@ class Timer {
 	return true;
     }
 
+    // 重置 elapsed 为 0
+    reset = function(id) {
+        id === undefined ? this.resetAll() : (this.queue.get(id).elapsed = 0); 
+    }
+
+    // 重置所有的 elapsed 为 0
+    resetAll = function() {
+        this.queue.forEach(function(item) {item.elapsed = 0}); 
+    }
+
     // tick
     tick(delta) { 
         this.paused || this.updateQueue(delta); 
