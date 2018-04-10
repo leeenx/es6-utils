@@ -1,5 +1,5 @@
 // 快速波动均分算法
-function quickWave(n = 5, crest = 4, trough = 4, isInteger = true) { 
+function quickWave(n = 5, crest = 4, trough = crest, isInteger = true) { 
 	// 平均结果
 	let list = []; 
 	// 无法进行波动均分，直接返回完全平分
