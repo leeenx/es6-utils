@@ -1,5 +1,5 @@
 // 波动均分 - 穷举法
-function exhaustWave(n = 5, crest = 4, trough = 4) { 
+function exhaustWave(n = 5, crest = 4, trough = crest) { 
 	// 根节点
 	let root = {
 		parent: null, 
