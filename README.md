@@ -262,5 +262,54 @@ p2angle的API如下：
 
 ![角度](http://7xv39r.com1.z0.glb.clouddn.com/20170924_coord.gif)
 
+## waveAverage
+
+「波动算法」，用于随机分割数值。通过「波动算法」可以指定分割后的随机数偏离「平均值」的距离，详细可以参考：[波动均分算法](https://aotu.io/notes/2018/01/11/waveaverage/)。
+
+这里提供了两个「波动均分算法」：
+
+- exhaustWave
+- quickWave
+
+### exhaustWave
+
+语法如下： 
+
+> exhaustWave(n, crest, trough)；
+> 返回值：分割的结果数组
+
+
+n ----- 表示要分割的份数；
+crest ------- 波峰值（即距离平均值的正向尺寸）；
+trough ------- 波谷值（即距离平均值的负向尺寸），默认取 crest 的值；
+
+用法如下：
+```javascript
+// 将 100 分割成 5分，波动为 10
+var average = 100 / 5; 
+// 分配结果
+var res = exhaustWave(5, 10).map(rnd => rnd + average)
+```
+
+**exhaustWave 一般不推荐使用，因为效率低下，并且只适用到整数分割**
+
+### quickWave
+
+> quickWave(n, crest, trough, isInteger)；
+> 返回值：分割的结果数组
+
+n ----- 表示要分割的份数；
+crest ------- 波峰值（即距离平均值的正向尺寸）；
+trough ------- 波谷值（即距离平均值的负向尺寸），默认取 crest 的值；
+isInteger ------ 是否分割为整数，默认取 true
+
+用法如下：
+```javascript
+// 将 100 分割成 5分，波动为 10
+var average = 100 / 5; 
+// 分配结果
+var res = quickWave(5, 10, 10, false).map(rnd => rnd + average)
+```
+**快速分配是推荐的算法，效率高可以分割实数**
 
 
