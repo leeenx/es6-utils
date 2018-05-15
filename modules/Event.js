@@ -54,8 +54,8 @@ export default class Event {
 
     // once 方法，监听一次
     once(event, cb) { 
-        let onceCb = () => {
-        	cb && cb(); 
+        let onceCb = arg => {
+        	cb && cb(arg); 
         	this.off(event, onceCb); 
         }
         this.register(event, onceCb); 
