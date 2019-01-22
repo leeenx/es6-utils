@@ -199,6 +199,25 @@ p2angle的API如下：
 
 ![角度](http://7xv39r.com1.z0.glb.clouddn.com/20170924_coord.gif)
 
+## Line
+
+创建一条直线。用法如下：
+```javascript
+// 穿过点<x1, y1> 和 <x2, y2> 的直线
+new Line({x1, y1}, {x2, y2})
+// 穿过点<x, y>并且斜率为 slope 的直线
+new Line({x, y}, slope)
+```
+
+API 如下：
+
+| name | type | syntax | detail |
+| :-- | :-- | :-- | :-- |
+| distanceFromCoord | Function | distanceFromCoord(x, y) | 返回点<x, y> 到直线的距离 |
+| cross | Function | cross(line) | 两直线的相交点 |
+| getX | function | getX(y) | 返回与 y 坐标对应的 x 坐标值 |
+| getY | function | getY(x) | 返回与 x 坐标对应的 y 坐标值 |
+
 ## waveAverage
 
 「波动算法」，用于随机分割数值。通过「波动算法」可以指定分割后的随机数偏离「平均值」的距离，详细可以参考：[波动均分算法](https://aotu.io/notes/2018/01/11/waveaverage/)。
