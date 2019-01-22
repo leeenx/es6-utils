@@ -29,7 +29,7 @@ export default class Condist {
     this.options = {}
     return this
   }
-  is (options) {
+  is = options => {
     Object.entries(options).forEach(
       ([ key, value ]) => {
         this.matches.push([key, value])
