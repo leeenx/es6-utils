@@ -39,7 +39,7 @@ export default class Condist {
     // 暴露两个 APIs
     return { is, get }
   }
-  get = name => {
+  get = (name = '') => {
     const { matches, result } = this
     // 搜索范围
     let range = result
@@ -51,7 +51,19 @@ export default class Condist {
       }
     )
     const answerList = range.map(
-      ({ answer }) => answer[name]
+      ({ answer }) => {
+        let key = name
+        if (name === '') {
+          const keys = Object.keys(answer)
+          if (keys.length === 1) {
+            // 没有 name
+            key = keys[0]
+          } else {
+            throw new Error('缺少参数')
+          }
+        }
+        return answer[key]
+      }
     )
     return answerList.length === 1 ? answerList[0] : answerList
   }
