@@ -25,71 +25,8 @@ import randomList from `./modules/randomList`;
 // 调用如下
 let [keys, vals] = randomList([1, 2, 3, 4, 5], 2, (num) => num>5); 
 ```
+
 ## Chain
-创建双向链表的类（构造函数）。**Chain 已弃用不再维护。已经升级至 [Chain_v2](https://github.com/leeenx/es6-utils#chain_v2)** 
-
-语法：
-> new Chain(Array)  
-
-将传入的数组转化为一个链表。
-
-**return**: {shift, unshift, pop, push, insertAfter, insertAfter, pointerAt, setPointer, prev, next, curr, first, last, remove, add, clone, splice, slice, concat, length, HEAD, TAIL, POINTER, chain}
-
-| name | type | detail |
-| :-- | :-- | :-- |
-| shift | Function | 删除链表第一个节点，并返回这个节点。参见数组的 shift |
-| unshift | Function | 向链表头部插入一个或多个节点节点。chain.unshift(node1[, node2, node3, ...]); 参见数组的 unshift | 
-| pop | Function | 删除链表最后一个，并返回这个节点。参见数组的 pop |
-| push | Function | 向链表尾部插入一个或多个节点。chain.push(node1[, node2, node3, ...]); 参考数组的 push | 
-| at | Function | 返回指定索引的节点，并将 POINTER 指向当前位置 |
-| pointerAt | Function | 返回指定 POINTER 地址的节点 |
-| setPointer | Function | 设置 POINTER 地址 |
-| prev | Function | 返回当前节点，并把 POINTER 指向上一个节点 |
-| next | Function | 返回当前节点，并把 POINTER 指向上一个节点 |
-| curr | Function | 返回当前节点 |
-| first | Function | 返回头节点 |
-| last | Function | 返回尾节点 |
-| remove | Function | 删除指定索引范围的节点，返回一个Chain实例。用法：chain.remove(start[, end]) |
-| insertAfter | Function | 向指定索引后插入节点。 用法：chain.insertAfter(index, node1[, node2, node3, ...]) |
-| insertBefore | Function | 向指定索引前插入节点。用法：chain.insertBefore(index, node1[, node2, node3, ...]) |
-| slice | Function | 克隆索引范围的节点，返回一个Chain实例。用法：chain.slice(start[, end]) |
-| splice | Function | 删除索引范围的节点，并在 start 处批量插入指定节点，返回一个 Chain 实例。用法：chain.splice(start[, deleteCount, item1, item2, ...]) |
-| concat | Function | 合并两个链表。用法：chainA.concat(chainB) |
-| clone | Function | 返回一个克隆链表 |
-| length | Number | 链表长度 |
-| HEAD | Number | 头指针 |
-| TAIL | Number | 尾指针 |
-| POINTER | Number | 当前位置指针 |
-| chain | Array | 存储链表结构的数组 |
-
-
-Chain的实例同时是一个迭代器。如下：
-
-```javascript
-import Chain from './modules/Chain'; 
-let chain = new Chain([1, 2, 3, 4, 5, 6, 7]); 
-for(let it of chain) {
-  console.log(it.data)
-}
-```
-上面代码输出的结果是：1, 2, 3, 4, 5, 6, 7
-
-利用 next/prev 来做迭代，如下：
-
-```javascript
-let chain = new Chain([1, 2, 3, 4, 5, 6, 7, 8]), item, i = 0; 
-chain.setPointer(3); 
-while(item = chain.prev()) {
-	console.log(item.data); 
-}
-```
-上面的结果是：4, 3, 2, 1
-
-> **说明：由于最开始的结构设计不合理，导致 concat 的算法复杂度太高，不符合链表的表现。我决定重新设计一个 v2 版本**
-
-## Chain_v2
-
-重新设计改写的 `Chain` 类，一个纯粹的链表类。API 与 `Chain` 几乎一样。
 
 语法：
 > new Chain(Array)  
