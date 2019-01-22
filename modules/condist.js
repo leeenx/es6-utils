@@ -1,6 +1,6 @@
 // 条件列表管理
 
-class Condist {
+export default class Condist {
   result = []
   // 待存储条件项
   options = {}
@@ -56,5 +56,3 @@ class Condist {
     return answerList.length === 1 ? answerList[0] : answerList
   }
 }
-
-export const condist = new Condist()
