@@ -46,12 +46,12 @@ class Line {
 		return {x, y} 
 	}
 	// 获取坐标 x
-	getX() { 
+	getX(y) { 
 		const {a, b, c} = this; 
 		return -(b * y + c) / a; 
 	}
 	// 获取坐标 y
-	getY() { 
+	getY(y) { 
 		const {a, b, c} = this; 
 		return -(a * x + c) / b; 
 	}
