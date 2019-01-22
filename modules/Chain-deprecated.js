@@ -1,6 +1,7 @@
 /*
 	@author: leeenx
 	@双向链表结构
+	@已弃用
 */
 
 class Chain {
