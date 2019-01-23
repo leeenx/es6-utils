@@ -1,12 +1,10 @@
-// 条件列表管理
-
-export default class Condist {
+class Condist {
   result = []
   // 待存储条件项
   options = {}
   // 待匹配条件项
   matches = []
-  static any = Symbol('any-value')
+  static any = `any-${Date.now()}`
   any = Condist.any
   add (options) {
     Object.entries(options).forEach(
@@ -51,7 +49,11 @@ export default class Condist {
             if (typeof value !== 'object') {
               return (
                 optValue === value ||
-                optValue === Condist.any
+                optValue === Condist.any ||
+                (
+                  typeof optValue === 'function' &&
+                  optValue(value)
+                )
               )
             } else if (typeof optValue === 'object') {
               // 如果是 Object/Array 只做浅层比对
