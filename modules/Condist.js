@@ -6,7 +6,7 @@ export default class Condist {
   options = {}
   // 待匹配条件项
   matches = []
-  static any = `any-${Date.now()}`
+  static any = Symbol('any-value')
   any = Condist.any
   add (options) {
     Object.entries(options).forEach(
