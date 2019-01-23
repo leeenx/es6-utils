@@ -12,7 +12,7 @@ export default class Condist {
     Object.entries(options).forEach(
       ([ key, value ]) => {
         // 转成字符串存储
-        this.options[`${key}: ${value}`] = true
+        this.options[key] = value
       }
     )
     const { add, any, set } = this
@@ -39,14 +39,50 @@ export default class Condist {
     // 暴露两个 APIs
     return { is, get }
   }
-  get = (name = '') => {
+  getList = (name = '') => {
     const { matches, result } = this
     // 搜索范围
     let range = result
     matches.forEach(
       ([ key, value ]) => {
         range = range.filter(
-          ({ options }) => options[`${key}: ${value}`] || options[`${key}: ${this.any}`]
+          ({ options }) => {
+            const optValue = options[key]
+            if (typeof value !== 'object') {
+              return (
+                optValue === value ||
+                optValue === Condist.any
+              )
+            } else if (typeof optValue === 'object') {
+              // 如果是 Object/Array 只做浅层比对
+              if (value instanceof Array) {
+                // 数组
+                return (
+                  value.length === optValue.length &&
+                  value.every(
+                    (item, index) => item === optValue[index]
+                  )
+                )
+              }
+              // 对象
+              return (
+                () => {
+                  for (const name of value) {
+                    if (value[name] !== optValue[name]) {
+                      return false
+                    }
+                  }
+                  for (const name of optValue) {
+                    if (value[name] !== optValue[name]) {
+                      return false
+                    }
+                  }
+                  return true
+                }
+              )
+            }
+            return false
+          }
         )
       }
     )
@@ -65,6 +101,15 @@ export default class Condist {
         return answer[key]
       }
     )
-    return answerList.length === 1 ? answerList[0] : answerList
+    return answerList
+  }
+  get = name => {
+    const answerList = this.getList(name)
+    if (answerList.length === 0) {
+      console.error('No any answer is matched!')
+    } else if (answerList.length > 1) {
+      console.error(`There're ${answerList.length} answers matched, you can use API:getList instead`)
+    }
+    return answerList[0]
   }
 }
