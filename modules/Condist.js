@@ -112,6 +112,7 @@ class Condist {
     } else if (answerList.length > 1) {
       console.error(`There're ${answerList.length} answers matched, you can use API:getList instead`)
     }
+    this.matches.length = 0
     return answerList[0]
   }
 }
