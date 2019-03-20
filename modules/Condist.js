@@ -1,4 +1,4 @@
-class Condist {
+export default class Condist {
   result = []
   // 待存储条件项
   options = {}
@@ -105,7 +105,7 @@ class Condist {
     )
     return answerList
   }
-  get = name => {
+  getAll = name => {
     const answerList = this.getList(name)
     if (answerList.length === 0) {
       console.error('No any answer is matched!')
@@ -113,6 +113,7 @@ class Condist {
       console.error(`There're ${answerList.length} answers matched, you can use API:getList instead`)
     }
     this.matches.length = 0
-    return answerList[0]
+    return answerList
   }
+  get = name => this.getAll(name)[0]
 }
