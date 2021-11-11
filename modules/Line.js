@@ -6,8 +6,8 @@
 export default class Line {
   constructor(coordA, coordB) {
     /*
-        @ 一般公式: ax + by + c = 0
-        @ 斜率公式： y = kx + d; 
+      @ 一般公式: ax + by + c = 0
+      @ 斜率公式： y = kx + d; 
     */
     let a;
     let b;
@@ -27,9 +27,10 @@ export default class Line {
     // 两个都是坐标 ---- 一般公式
     else {
       const { x: x1, y: y1 } = coordB;
-      a = y1 - y0;
-      b = x0 - x1;
-      c = x1 * y0 + x0 * y1;
+      radian = (y0 - y1) / (x0 - x1);
+      a = -radian;
+      b = 1;
+      c = (x0 * y1 - y0 * x1) / (x0 - x1);
     }
     this.a = a;
     this.b = b;
